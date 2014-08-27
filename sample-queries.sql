@@ -1,4 +1,11 @@
 /**
+ * Drop any duplicate users
+ */
+ALTER IGNORE TABLE `master`
+ADD UNIQUE INDEX (`twitter_id`);
+
+
+/**
  * Gender by volume
  */
 select t.label, m.demographic_sex, count(*)
@@ -23,14 +30,23 @@ GROUP BY t.label, m.demographic_sex
 ;
 
 /**
- * Demographic Age Ranges
+ * Demographic Age Ranges Percentages
  */
-SELECT
+select
 	t.label,
-	CONCAT(m.demographic_age_range_start,' to ',m.demographic_age_range_end) AS age_range,
+	COUNT(*) / total_t.total_cnt as percentage,
+	CONCAT(m.demographic_age_range_start,' to ',m.demographic_age_range_end) as age_range,
 	COUNT(CONCAT(m.demographic_age_range_start,' to ',m.demographic_age_range_end)) AS count
-FROM master m
-LEFT OUTER JOIN tags t ON t.interaction_id = m.interaction_id
-WHERE m.demographic_age_range_start IS NOT NULL
-GROUP BY t.label, age_range
+FROM master m LEFT OUTER JOIN tags t ON t.interaction_id = m.interaction_id
+    INNER JOIN (SELECT label, COUNT(*) AS total_cnt
+                FROM tags p, master d
+                where p.interaction_id = d.interaction_id
+                and d.demographic_age_range_start is not null
+				and  d.demographic_age_range_end is not null
+                GROUP BY p.label
+    ) total_t ON total_t.label = t.label
+where m.demographic_age_range_start is not null
+and  m.demographic_age_range_end is not null
+group by t.label, age_range
+order by age_range, t.label
 ;
