@@ -1,18 +1,19 @@
 /**
  * Gender by volume
  */
-select t.label, m.demographic_sex, count(*) from
-Master m
+select t.label, m.demographic_sex, count(*)
+FROM
+    master m
 LEFT OUTER JOIN tags t ON t.interaction_id = m.interaction_id
-where m.demographic_sex is not null
-group by t.label, m.demographic_sex
+WHERE m.demographic_sex is not null
+GROUP BY t.label, m.demographic_sex
 ;
 
 /**
  * Gender by volume - percentages
  */
 SELECT t.label, m.demographic_sex, COUNT(*), COUNT(*) / total_t.total_cnt as percentage
-FROM Master m LEFT OUTER JOIN tags t ON t.interaction_id = m.interaction_id
+FROM master m LEFT OUTER JOIN tags t ON t.interaction_id = m.interaction_id
     INNER JOIN (SELECT label, COUNT(*) AS total_cnt
                 FROM tags
                 GROUP BY label
