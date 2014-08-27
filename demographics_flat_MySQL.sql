@@ -2,6 +2,7 @@
 
 DROP TABLE IF EXISTS master;
 DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS demographic_likes_and_interests;
 
 CREATE TABLE master (
   interaction_id VARCHAR(64) NOT NULL,
@@ -50,29 +51,6 @@ CREATE TABLE master (
   user_timezone VARCHAR(64) NULL,
   twitter_place_country VARCHAR(64) NULL,
   twitter_filter_level VARCHAR(64) NULL,
-  retweeted_user_time_zone VARCHAR(64) NULL,
-  retweeted_place_attributes VARCHAR(64) NULL,
-  retweeted_place_name VARCHAR(64) NULL,
-  retweeted_user_verified INT NULL,
-  retweeted_place_place_type VARCHAR(64) NULL,
-  retweeted_source VARCHAR(64) NULL,
-  retweeted_user_description VARCHAR(64) NULL,
-  retweeted_user_follower_ratio INT NULL,
-  retweeted_user_followers_count INT NULL,
-  retweeted_user_friends_count INT NULL,
-  retweeted_user_id INT NULL,
-  retweeted_user_lang VARCHAR(64) NULL,
-  retweeted_user_listed_count INT NULL,
-  retweeted_id VARCHAR(64) NULL,
-  retweeted_user_location VARCHAR(64) NULL,
-  retweeted_user_profile_age INT NULL,
-  retweeted_place_country VARCHAR(64) NULL,
-  retweeted_user_screen_name VARCHAR(64) NULL,
-  retweeted_user_url VARCHAR(64) NULL,
-  retweeted_place_country_code VARCHAR(64) NULL,
-  retweeted_user_statuses_count INT NULL,
-  retweeted_place_url VARCHAR(64) NULL,
-  retweeted_place_full_name VARCHAR(64) NULL,
   demographic_location_us_state VARCHAR(64) NULL,
   demographic_location_city VARCHAR(64) NULL,
   demographic_services VARCHAR(255) NULL,
@@ -97,15 +75,7 @@ CREATE TABLE master (
   url VARCHAR(255) NOT NULL,
   title VARCHAR(255) NULL,
   domain VARCHAR(255) NULL,
-  normalized_url VARCHAR(64) NULL,
-  links_code INT NULL,
-  meta_content_type VARCHAR(64) NULL,
-  meta_charset VARCHAR(64) NULL,
-  meta_lang VARCHAR(64) NULL,
-  meta_keywords VARCHAR(64) NULL,
-  meta_description VARCHAR(64) NULL,
-  meta_standout VARCHAR(64) NULL,
-  meta_newskeywords VARCHAR(64) NULL
+  normalized_url VARCHAR(64) NULL
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
@@ -119,6 +89,17 @@ CREATE TABLE tags (
   INDEX old_tags_interaction_id_idx (interaction_id),
   INDEX old_tags_interaction_type_idx (interaction_type),
   INDEX old_tags_created_at_idx (created_at)
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+CREATE TABLE demographic_likes_and_interests (
+  interaction_id VARCHAR(64) NOT NULL,
+  interaction_type VARCHAR(50) NOT NULL,
+  created_at DATETIME NOT NULL,
+  twitter_id VARCHAR(64) NULL,
+  interest VARCHAR(255) DEFAULT NULL
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
