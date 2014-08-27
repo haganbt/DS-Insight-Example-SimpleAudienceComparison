@@ -1,9 +1,8 @@
 /**
  * Drop any duplicate users
  */
-ALTER IGNORE TABLE `master`
-ADD UNIQUE INDEX (`twitter_id`);
-
+ALTER IGNORE TABLE `master` ADD UNIQUE INDEX (`twitter_id`);
+ALTER IGNORE TABLE ` demographic_likes_and_interests` ADD UNIQUE INDEX (`twitter_id`);
 
 /**
  * Gender by volume
@@ -32,7 +31,7 @@ GROUP BY t.label, m.demographic_sex
 /**
  * Demographic Age Ranges Percentages
  */
-select
+SELECT
 	t.label,
 	COUNT(*) / total_t.total_cnt as percentage,
 	CONCAT(m.demographic_age_range_start,' to ',m.demographic_age_range_end) as age_range,
