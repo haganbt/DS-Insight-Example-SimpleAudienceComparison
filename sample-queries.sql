@@ -17,6 +17,6 @@ FROM Master m LEFT OUTER JOIN tags t ON t.interaction_id = m.interaction_id
                 FROM tags
                 GROUP BY label
     ) total_t ON total_t.label = t.label
-/*WHERE m.demographic_sex is not null*/
+WHERE m.demographic_sex is not null
 GROUP BY t.label, m.demographic_sex
 ;
