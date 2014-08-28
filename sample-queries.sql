@@ -1,8 +1,15 @@
 /**
- * Drop any duplicate users
+ * Create indexes on interaction_id
+ */
+CREATE INDEX master_interaction_id ON master (interaction_id);
+CREATE INDEX tags_interaction_id ON tags (interaction_id);
+CREATE INDEX demographic_likes_and_interests_interaction_id ON demographic_likes_and_interests (interaction_id);
+
+
+/**
+ * Drop any duplicate user data from master
  */
 ALTER IGNORE TABLE `master` ADD UNIQUE INDEX (`twitter_id`);
-ALTER IGNORE TABLE `demographic_likes_and_interests` ADD UNIQUE INDEX (`twitter_id`);
 
 /**
  * Gender by volume
