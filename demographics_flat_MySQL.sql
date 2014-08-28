@@ -72,7 +72,7 @@ CREATE TABLE master (
   demographic_professions VARCHAR(255) NULL,
   hashtag VARCHAR(255) NULL,
   mention VARCHAR(255) NULL,
-  url VARCHAR(255) NOT NULL,
+  url VARCHAR(255) NULL,
   title VARCHAR(255) NULL,
   domain VARCHAR(255) NULL,
   normalized_url VARCHAR(64) NULL
