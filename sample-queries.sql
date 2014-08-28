@@ -2,7 +2,7 @@
  * Drop any duplicate users
  */
 ALTER IGNORE TABLE `master` ADD UNIQUE INDEX (`twitter_id`);
-ALTER IGNORE TABLE ` demographic_likes_and_interests` ADD UNIQUE INDEX (`twitter_id`);
+ALTER IGNORE TABLE `demographic_likes_and_interests` ADD UNIQUE INDEX (`twitter_id`);
 
 /**
  * Gender by volume
